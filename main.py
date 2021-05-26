@@ -1,6 +1,7 @@
 import csv
 from random import shuffle
 import numpy as np
+import matplotlib.pyplot as plt
 
 from network import NeuralNetwork
 from fully_connected_layer import FullyConnectedLayer
@@ -61,4 +62,13 @@ model.add(FullyConnectedLayer(60, 47))
 model.add(ActivationLayer(sigmoid, derivative_sigmoid))
 model.add(FullyConnectedLayer(47, 2))
 
-model.fit(x_train, y_train, x_test, y_test, 200, 0.01)
+epochs = 200
+learning_rate = 0.05
+train_error, test_error = model.fit(x_train, y_train, x_test, y_test,
+                                    epochs, learning_rate)
+
+x_axis = np.arange(0, epochs)
+plt.plot(x_axis, train_error)
+plt.plot(x_axis, test_error)
+plt.legend(["train", "test"])
+plt.show()
